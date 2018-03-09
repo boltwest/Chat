@@ -1,3 +1,124 @@
-body{
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
     background: #2db0ff;
+}
+
+.wrapper {
+    max-width: 1000px;
+    height: calc(100vh - 60px);
+    margin: 30px auto;
+    position: relative;
+}
+
+#listUsers {
+    background: #434753;
+    height: 100%;
+    width: calc(30% - 10px);
+    border-bottom-left-radius: 10px;
+    border-top-left-radius: 10px;
+    margin-left: 10px;
+}
+
+#chatField {
+    height: 100%;
+    width: calc(70% - 15px);
+    margin-right: 10px;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+#lableField, #messageField, #inputField {
+    background: #f0f5f8;
+}
+
+/*Lable field                              Lable field*/
+
+#lableField {
+    height: 80px;
+    border-top-right-radius: 10px;
+    margin-bottom: 5px;
+}
+
+/*Message field                            Message field*/
+
+#messageField {
+    height: calc(100% - 240px);
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.messageField__messageUser {
+    padding: 20px;
+}
+
+.messageField__lableMessage {
+    font-size: 15px;
+}
+
+.messageField__lableMessageText {
+    background: #e6ebee;
+    padding: 5px;
+    border-radius: 7px;
+    box-shadow: 0 0 10px #fff;
+}
+
+.messageField__lableMessage-user {
+    text-align: right;
+}
+
+.messageField__message {
+    width: 80%;
+    padding: 8px;
+    color: #fff;
+    margin-top: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px #aaa;
+}
+
+.messageField__message-am {
+    background: #62bf6f;
+}
+
+.messageField__message-user {
+    background: #7bc4ef;
+    position: relative;
+    margin-left: calc(20% - 16px);
+}
+
+/*Input field                           Input field*/
+
+#inputField {
+    height: 150px;
+    border-bottom-right-radius: 10px;
+    margin-top: 5px;
+}
+
+.inputField__inputUserMessage {
+    width: calc(100% - 40px);
+    height: 50px;
+    margin: 10px;
+    padding: 10px;
+    font-family: sans-serif;
+    font-weight: lighter;
+    font-size: 18px;
+}
+
+.inputField__buttonSend {
+    color: #7bc4ef;
+    float: right;
+    margin-right: 20px;
+    font-size: 20px;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+.inputField__buttonSend:focus {
+    outline: none;
 }
