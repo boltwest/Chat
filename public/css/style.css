@@ -1,6 +1,7 @@
 * {
     margin: 0;
     padding: 0;
+    font-family: sans-serif;
 }
 
 body {
@@ -14,14 +15,53 @@ body {
     position: relative;
 }
 
+/*List user                               List user*/
+
 #listUsers {
     background: #434753;
     height: 100%;
-    width: calc(30% - 10px);
+    width: calc(30% - 30px);
     border-bottom-left-radius: 10px;
     border-top-left-radius: 10px;
     margin-left: 10px;
+    position: relative;
+    text-align: center;
+    padding: 0 10px;
 }
+
+.listUsers__publicChat {
+    font-size: 30px;
+    padding: 10px;
+    display: inline-block;
+    margin-top: 20px;
+    cursor: pointer;
+    user-select: none;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #fff;
+    color: #aaa;
+    font-family: fantasy;
+}
+
+.listUsers__userOnlineList {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-top: 20px;
+}
+
+.listUsers__userOnline {
+    text-align: center;
+    padding: 5px;
+    border-top: 1px solid #aaa;
+    color: #aaa;
+    font-family: sans-serif;
+    cursor: pointer;
+    user-select: none;
+}
+.listUsers__userOnline:last-child{
+    border-bottom: 1px solid #aaa;
+}
+
+/*Chat field                              Chat field*/
 
 #chatField {
     height: 100%;
@@ -32,16 +72,39 @@ body {
     top: 0;
 }
 
+/*Lable field                              Lable field*/
+
 #lableField, #messageField, #inputField {
     background: #f0f5f8;
 }
-
-/*Lable field                              Lable field*/
 
 #lableField {
     height: 80px;
     border-top-right-radius: 10px;
     margin-bottom: 5px;
+    position: relative;
+}
+
+.lableField__nameChat {
+    position: absolute;
+    top: calc(50% - 22px);
+    left: 50px;
+    font-size: 24px;
+    padding: 10px;
+    background: #e6ebee;
+    box-shadow: 0 0 10px #fff;
+    border-radius: 10px;
+}
+
+.lableField__settings {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    padding: 15px;
+    font-family: "untitled-font-1";
+    font-size: 30px;
+    cursor: pointer;
+    user-select: none;
 }
 
 /*Message field                            Message field*/
@@ -108,6 +171,10 @@ body {
     font-family: sans-serif;
     font-weight: lighter;
     font-size: 18px;
+    border-radius: 10px;
+}
+.inputField__inputUserMessage:focus{
+    outline: none;
 }
 
 .inputField__buttonSend {
@@ -117,6 +184,7 @@ body {
     font-size: 20px;
     padding: 5px;
     border-radius: 10px;
+    cursor: pointer;
 }
 
 .inputField__buttonSend:focus {

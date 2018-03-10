@@ -6,20 +6,25 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="icon" href="images/titleicon50.png" type="image/gif"/>
+    <link href="https://file.myfontastic.com/tmBNhYy3jHLhMRprfkFGkP/icons.css" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
-    <script src="/socket.io/socket.io.js"></script>
-    <script type="text/javascript" src="js/script.js" defer></script>
-    <script
-            src="https://code.jquery.com/jquery-3.3.1.min.js"
-            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-            crossorigin="anonymous"></script>
     <title>Привет ≥︺‿︺≤</title>
 </head>
 <body>
-<div class="wrapper">
-    <div id="listUsers"></div>
+<div id="chatWrapper" class="wrapper">
+    <div id="listUsers">
+        <span class="listUsers__publicChat">Public chat</span>
+        <div class="listUsers__userOnlineList">
+            <div class="listUsers__userOnline">Игорь</div>
+            <div class="listUsers__userOnline">Вася</div>
+            <div class="listUsers__userOnline">Петя</div>
+        </div>
+    </div>
     <div id="chatField">
-        <div id="lableField"></div>
+        <div id="lableField">
+            <div class="lableField__nameChat">Public chat</div>
+            <span class="lableField__settings">a</span>
+        </div>
         <div id="messageField">
             <div class="messageField__messageUser">
                 <div class="messageField__lableMessage"><span
@@ -32,7 +37,8 @@
             <div class="messageField__messageUser">
                 <div class="messageField__lableMessage messageField__lableMessage-user"><span
                         class="messageField__lableMessageText"><strong>2 User</strong> 12:36</span></div>
-                <div class="messageField__message messageField__message-user">Lorem ipsum dolor sit amet, consectetur
+                <div class="messageField__message messageField__message-user">Lorem ipsum dolor sit amet,
+                    consectetur
                     vitae?
                 </div>
             </div>
@@ -41,7 +47,8 @@
                         class="messageField__lableMessageText"><strong>3 AM</strong> 12:36</span>
                 </div>
                 <div class="messageField__message messageField__message-am">Lorem ipsum dolor sit amet, consectetur
-                    quisquam repudiandae, sequi sunt vitae? Delectus distinctio eveniet mollitia necessitatibus, nihil
+                    quisquam repudiandae, sequi sunt vitae? Delectus distinctio eveniet mollitia necessitatibus,
+                    nihil
                     vitae?
                 </div>
             </div>
@@ -51,7 +58,30 @@
             <input type="button" value="Send" class="inputField__buttonSend">
         </div>
     </div>
+
 </div>
+
+
+<!--/////////////////////////////////////////////////// Template//////////////////-->
+
+<script id="message-am-template" type="text/x-handlebars-template">
+    <div class="messageField__messageUser">
+        <div class="messageField__lableMessage">
+            <span class="messageField__lableMessageText"><strong>AM</strong> {{date}}</span>
+        </div>
+        <div class="messageField__message messageField__message-am">{{text}}</div>
+    </div>
+</script>
+
+<script id="message-user-template" type="text/x-handlebars-template">
+    <div class="messageField__messageUser">
+        <div class="messageField__lableMessage messageField__lableMessage-user"><span
+                class="messageField__lableMessageText"><strong>{{name}}</strong> {{date}}</span></div>
+        <div class="messageField__message messageField__message-user">{{text}}</div>
+    </div>
+</script>
+
+<!--/////////////////////////////////////////////////// Template//////////////////-->
 
 
 <div id="room">
@@ -64,5 +94,14 @@
         <input type="button" name="submit" value="output">
     </form>
 </div>
+<script type="text/javascript" src="js/handlebars-v4.0.11.js" defer></script>
+<script
+        src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script type="text/javascript" src="js/script.js" defer></script>
+
+
 </body>
 </html>
