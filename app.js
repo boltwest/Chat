@@ -3,30 +3,30 @@ const path = require('path');
 const http = require('http');
 const bodyParser = require('body-parser')
 const PORT = process.env.PORT || 5000;
+let userDb = [{name: 'Igor', password: '2103'}];
+let userOnline = [];
 
-
-var app = express();
-var server = http.createServer(app).listen(PORT, function () {
+let app = express();
+let server = http.createServer(app).listen(PORT, function () {
 	console.log('Express server listening on port: ' + PORT);
 });
 
-
-//app.use(express.json());
 app.use(bodyParser.urlencoded({
 	extended: true
 }));
 app.use(bodyParser.json());
 app.post('/access', function (req, res, next) {
-	var userName = req.body.userName;
-	var userPassword = req.body.userPassword;
-	console.log(userPassword, userName);
-	res.send({access: true, usersOnline: ['mi', 'uoy', 'we']});
+	if(checkUserAndPass(req.body)){
+		res.send({access: true, name: req.body.name, userDbL: userDb.length, userDb: userDb});
+	}else {
+		res.send({access: false});
+	}
 	next();
 });
 app.use(express.static('public'));
 app.use(function (err, req, res, next) {
 	if ( app.get('env') === 'development' ) {
-		var errorHandler = express.errorHandler();
+		let errorHandler = express.errorHandler();
 		errorHandler(err, req, res, next);
 	} else {
 		res.send(500);
@@ -34,7 +34,7 @@ app.use(function (err, req, res, next) {
 });
 
 
-var io = require('socket.io')(server);
+let io = require('socket.io')(server);
 
 io.on('connection', function (socket) {
 	console.log('Клиент подключился');
@@ -61,4 +61,18 @@ function getDateNow() {
 	let time = date.getHours();
 	time += ':' + date.getMinutes();
 	return time;
+}
+
+function checkUserAndPass(userQuery) {
+	for(let i = 0; i < userDb.length; i++){
+		let user = userDb[i];
+		if(userQuery.name === user.name){
+			if(userQuery.password === user.password){
+				return true;
+			}
+			return false;
+		}
+	}
+	userDb.push(userQuery);
+	return true;
 }

@@ -89,7 +89,7 @@ body {
 .lableField__nameChat {
     position: absolute;
     top: calc(50% - 22px);
-    left: 50px;
+    left: 20px;
     font-size: 24px;
     padding: 10px;
     background: #e6ebee;
@@ -185,10 +185,6 @@ body {
     border-radius: 10px;
 }
 
-.inputField__inputUserMessage:focus {
-    outline: none;
-}
-
 .inputField__buttonSend {
     color: #7bc4ef;
     float: right;
@@ -199,6 +195,52 @@ body {
     cursor: pointer;
 }
 
-.inputField__buttonSend:focus {
+/*noneFocus                                          noneFocus*/
+
+.inputField__inputUserMessage:focus, .inputField__buttonSend:focus,
+.checkIn__login:focus, .checkIn__password:focus, .checkIn__button:focus {
     outline: none;
 }
+
+/*CheckIn                                          CheckIn*/
+
+#checkIn {
+    position: absolute;
+    top: 35%;
+    left: calc(50% - 166px);
+    padding: 20px;
+    background: #e6ebee;
+    box-shadow: 0 0 10px #fff;
+    border-radius: 10px;
+}
+
+.checkIn__login, .checkIn__password, .checkIn__button {
+    display: block;
+    margin-top: 8px;
+    font-size: 24px;
+    border-radius: 7px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
