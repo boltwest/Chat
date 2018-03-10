@@ -27,29 +27,23 @@
         </div>
         <div id="messageField">
             <div class="messageField__messageUser">
-                <div class="messageField__lableMessage"><span
+                <div class="messageField__lableMessage messageField__lableMessage-am"><span
                         class="messageField__lableMessageText"><strong>1 AM</strong> 12:36</span>
                 </div>
-                <div class="messageField__message messageField__message-am">Lorem ipsum dolor sit amet, consectetur
-                    vitae?
-                </div>
-            </div>
-            <div class="messageField__messageUser">
-                <div class="messageField__lableMessage messageField__lableMessage-user"><span
-                        class="messageField__lableMessageText"><strong>2 User</strong> 12:36</span></div>
-                <div class="messageField__message messageField__message-user">Lorem ipsum dolor sit amet,
-                    consectetur
-                    vitae?
+                <div class="messageField__message messageField__message-am"><span class="messageField__message-amText">Lorem ipsum dolor sit amet, consectetur adipisicing elit. A consequatur dicta laudantium magnam necessitatibus, provident.</span>
                 </div>
             </div>
             <div class="messageField__messageUser">
                 <div class="messageField__lableMessage"><span
-                        class="messageField__lableMessageText"><strong>3 AM</strong> 12:36</span>
+                        class="messageField__lableMessageText"><strong>2 User</strong> 12:36</span></div>
+                <div class="messageField__message"><span class="messageField__message-userText">Lorem ipsum dolor sit amet.</span>
                 </div>
-                <div class="messageField__message messageField__message-am">Lorem ipsum dolor sit amet, consectetur
-                    quisquam repudiandae, sequi sunt vitae? Delectus distinctio eveniet mollitia necessitatibus,
-                    nihil
-                    vitae?
+            </div>
+            <div class="messageField__messageUser">
+                <div class="messageField__lableMessage messageField__lableMessage-am"><span
+                        class="messageField__lableMessageText"><strong>1 AM</strong> 12:36</span>
+                </div>
+                <div class="messageField__message messageField__message-am"><span class="messageField__message-amText">Lorem ipsum dolor sit </span>
                 </div>
             </div>
         </div>
@@ -66,18 +60,20 @@
 
 <script id="message-am-template" type="text/x-handlebars-template">
     <div class="messageField__messageUser">
-        <div class="messageField__lableMessage">
-            <span class="messageField__lableMessageText"><strong>AM</strong> {{date}}</span>
+        <div class="messageField__lableMessage messageField__lableMessage-am"><span
+                class="messageField__lableMessageText"><strong>{{name}}</strong> {{date}}</span>
         </div>
-        <div class="messageField__message messageField__message-am">{{text}}</div>
+        <div class="messageField__message messageField__message-am"><span class="messageField__message-amText">{{text}}</span>
+        </div>
     </div>
 </script>
 
 <script id="message-user-template" type="text/x-handlebars-template">
     <div class="messageField__messageUser">
-        <div class="messageField__lableMessage messageField__lableMessage-user"><span
+        <div class="messageField__lableMessage"><span
                 class="messageField__lableMessageText"><strong>{{name}}</strong> {{date}}</span></div>
-        <div class="messageField__message messageField__message-user">{{text}}</div>
+        <div class="messageField__message"><span class="messageField__message-userText">{{text}}</span>
+        </div>
     </div>
 </script>
 
