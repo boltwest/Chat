@@ -22,8 +22,8 @@ key.addEventListener('click', function (event) {
 	var textInput = document.getElementById('text');
 	var text = textInput.value;
 	textInput.value = '';
-	socket.emit('messageUser', {text: text}, function () {
-		writeText(text);
+	socket.emit('messageUser', {text: text}, function (time) {
+		writeText(text + ' ' + time);
 	});
 
 
@@ -35,20 +35,15 @@ function writeText(texts) {
 
 const FIELD = $('#chatWrapper');
 let controlChat = new ChatController();
-controlChat.start(null, FIELD);
-
-
-
-let messageObject = {
-	name: 'Boba',
-	text: 'lorem10',
-	date: '23:18'
-};
-let templateUser = document.getElementById('message-user-template');
-
 let viewChat = new ChatView();
-viewChat.start(null, FIELD);
-viewChat.addMessageUsers(messageObject, templateUser);
+let modelChat = new ChatModel();
+
+controlChat.start(modelChat, FIELD);
+viewChat.start(modelChat, FIELD);
+modelChat.start(viewChat);
+
+
+
 
 
 
@@ -66,6 +61,7 @@ function ChatController() {
 		buttonSend.addEventListener('click', this.sendMessage);
 	}
 	this.sendMessage = function () {
+		modelComponent.sendMessageAll(textMessage.value);
 		console.log(textMessage.value);
 		textMessage.value = '';
 		textMessage.focus();
@@ -75,11 +71,34 @@ function ChatController() {
 //                          Model                          //  Model  //
 
 function ChatModel() {
+	let self = this;
 	let viewComponent;
 	let registration = false;
+	let name = 'igor';
 
 	this.start = function (view) {
 		viewComponent = view;
+	};
+
+	socket.on('messagePublic', function (data) {
+		self.updateViewUserMessage(data);
+	});
+	
+	this.sendMessageAll = function (text) {
+		socket.emit('messageUserAll', {name: name, text: text}, function (time) {
+			self.updateViewSelfMessage(text, time);
+		})
+	};
+
+	this.updateViewSelfMessage = function (text, time) {
+		viewComponent.addMessageChat({name: name, text: text, date: time});
+	};
+	this.updateViewUserMessage = function (data) {
+		viewComponent.addMessageChat(data);
+	};
+
+	this.getName = function () {
+		return name;
 	}
 }
 
@@ -89,11 +108,13 @@ function ChatView() {
 	let modelComponent;
 	let domField;
 	let messageField;
-	let messageObject = {
-		name: 'Boba',
-		text: 'lorem10',
-		date: '23:18'
-	};
+	let sourceTemplateMe = document.getElementById('message-am-template').innerHTML;
+
+	let sourceTemplateUser = document.getElementById('message-am-template').innerHTML;
+
+	let sourceTemplateUserOnline = document.getElementById('message-am-template').innerHTML;
+	let templateUserOnline = Handlebars.compile(sourceTemplateUserOnline);
+
 
 	this.start = function (model, field) {
 		modelComponent = model;
@@ -102,9 +123,14 @@ function ChatView() {
 		// console.log(messageField);
 	};
 
-	this.addMessageUsers = function (json, userTemplate) {
-		let template = Handlebars.compile($(userTemplate).html());
-		$(messageField).append(template(json));
+	this.addMessageChat = function (json) {
+		if(json.name === modelComponent.getName()){
+			let templateMe = Handlebars.compile(sourceTemplateMe);
+			$(messageField).append(templateMe(json));
+		}else {
+			let templateUser = Handlebars.compile(sourceTemplateUser);
+			$(messageField).append(templateUser(json));
+		}
 	}
 }
 

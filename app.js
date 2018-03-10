@@ -40,10 +40,25 @@ io.on('connection', function (socket) {
 	console.log('Клиент подключился');
 	socket.emit('message', {text: 'connection: ok'});
 
+	socket.on('messageUserAll', function (data, cb) {
+		data.time = getDateNow();
+		socket.broadcast.emit('messagePublic', data);
+		console.log(data.text);
+		cb(data.time);
+	})
+
 	socket.on('messageUser', function (data, cb) {
+		data.time = getDateNow();
 		socket.broadcast.emit('message', data);
 		console.log(data.text);
-		cb();
+		cb(data.time);
 	})
 
 });
+
+function getDateNow() {
+	let date = new Date();
+	let time = date.getHours();
+	time += ':' + date.getMinutes();
+	return time;
+}
