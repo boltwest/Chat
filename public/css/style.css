@@ -17,7 +17,7 @@ body {
 
 /*List user                               List user*/
 
-#listUsers {
+.listUsers {
     background: #434753;
     height: 100%;
     width: calc(30% - 30px);
@@ -205,9 +205,10 @@ body {
 /*CheckIn                                          CheckIn*/
 
 #checkIn {
+    width: 300px;
     position: absolute;
     top: 35%;
-    left: calc(50% - 166px);
+    left: calc(50% - 170px);
     padding: 20px;
     background: #e6ebee;
     box-shadow: 0 0 10px #fff;
@@ -220,6 +221,18 @@ body {
     font-size: 24px;
     border-radius: 7px;
 }
+
+/*CheckIn error                                       CheckIn error*/
+
+.checkIn__error{
+    width: 70%;
+    position: absolute;
+    right: 5px;
+    bottom: 12px;
+    color: red;
+    display: none;
+}
+
 
 
 

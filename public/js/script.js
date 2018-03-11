@@ -60,11 +60,13 @@ function ChatController() {
 		buttonSend.addEventListener('click', this.sendMessage);
 		let buttonLogIn = ($('#checkIn .checkIn__button', field))[0];
 		buttonLogIn.addEventListener('click', this.checkIn);
+		let SowListOnline = ($('#listUsers', field))[0];
+		SowListOnline.addEventListener('click', this.showListOnline);
 	};
 
 	this.sendMessage = function () {
 		modelComponent.sendMessageAll(textMessage.value);
-		console.log(textMessage.value);
+		// console.log(textMessage.value);
 		textMessage.value = '';
 		textMessage.focus();
 	};
@@ -73,8 +75,11 @@ function ChatController() {
 		let login = ($('#checkIn .checkIn__login', domField))[0];
 		let password = ($('#checkIn .checkIn__password', domField))[0];
 		modelComponent.checkUser(login.value, password.value);
-		login.value = '';
+		// login.value = '';
 		password.value = '';
+	};
+	this.showListOnline = function () {
+		modelComponent.showListOnline();
 	};
 }
 
@@ -88,7 +93,8 @@ function ChatModel() {
 		registration: false,
 		error: false,
 		name: 'Igor',
-		nameRoom: 'LogIn'
+		nameRoom: 'LogIn',
+		showListOnline: false
 	};
 
 	this.start = function (view) {
@@ -107,7 +113,7 @@ function ChatModel() {
 	};
 
 	function requestFunc(data) {
-		console.log(data);
+		// console.log(data);
 		if(data.access){
 			let socketIo = io();
 			socket = socketIo;
@@ -151,6 +157,11 @@ function ChatModel() {
 	this.updateViewComponent = function () {
 		viewComponent.updateView();
 	};
+
+	this.showListOnline = function () {
+		properties.showListOnline = !properties.showListOnline;
+		self.updateViewComponent();
+	}
 }
 
 //                          View                          //  View    //
@@ -161,6 +172,8 @@ function ChatView() {
 	let messageField;
 	let nameRoom;
 	let checkIn;
+	let error;
+	let onlineList;
 	let sourceTemplateMe = document.getElementById('message-am-template').innerHTML;
 
 	let sourceTemplateUser = document.getElementById('message-user-template').innerHTML;
@@ -175,6 +188,8 @@ function ChatView() {
 		messageField = ($('#messageField', field))[0];
 		nameRoom = ($('#lableField .lableField__nameChat', field))[0];
 		checkIn = ($('#checkIn', field))[0];
+		error = $('#checkIn .checkIn__error', field)[0];
+		onlineList = ($('#listUsers', field))[0];
 	};
 
 	this.addMessageChat = function (json) {
@@ -191,6 +206,14 @@ function ChatView() {
 		$(nameRoom).text(modelComponent.get('nameRoom'));
 		if(modelComponent.get('registration')){
 			$(checkIn).hide();
+		}
+		if(modelComponent.get('error')) {
+			$(error).show();
+		}
+		if(modelComponent.get('showListOnline')){
+			$(onlineList).addClass('listUsersSow');
+		}else {
+			$(onlineList).removeClass('listUsersSow');
 		}
 	}
 }

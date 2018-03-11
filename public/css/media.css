@@ -1,0 +1,73 @@
+.listUsers:before {
+    content: 'b';
+    display: none;
+    font-family: "untitled-font-1";
+    font-size: 40px;
+    position: absolute;
+    top: 20px;
+    right: -60px;
+    cursor: pointer;
+}
+
+
+
+@media screen and (max-width: 550px) {
+    #checkIn {
+        width: 150px;
+        left: calc(50% - 95px);
+    }
+
+    .checkIn__login, .checkIn__password, .checkIn__button {
+        width: 90%;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    #checkIn {
+        width: 250px;
+        left: calc(50% - 145px);
+    }
+
+    .checkIn__login, .checkIn__password, .checkIn__button {
+        width: 90%;
+    }
+
+    .listUsers {
+        width: 130px;
+        transform: translate(-160px);
+        border-radius: 10px;
+        z-index: 20;
+    }
+
+    .listUsers:before{
+        display: inline-block;
+    }
+
+    .listUsersSow {
+        transform: translate(0);
+    }
+
+    #chatField {
+        width: calc(100% - 20px);
+    }
+
+    #lableField {
+        border-top-left-radius: 10px;
+    }
+
+    .lableField__nameChat {
+        left: 60px;
+    }
+
+    /*.lableField__nameChat:before {*/
+    /*content: 'b';*/
+    /*display: inline-block;*/
+    /*font-family: "untitled-font-1";*/
+    /*position: absolute;*/
+    /*left: -40px;*/
+    /*cursor: pointer;*/
+    /*}*/
+    #inputField {
+        border-bottom-left-radius: 10px;
+    }
+}

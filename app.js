@@ -37,13 +37,13 @@ app.use(function (err, req, res, next) {
 let io = require('socket.io')(server);
 
 io.on('connection', function (socket) {
-	console.log('Клиент подключился');
+	// console.log('Клиент подключился');
 	socket.emit('message', {text: 'connection: ok'});
 
 	socket.on('messageUserAll', function (data, cb) {
 		data.time = getDateNow();
 		socket.broadcast.emit('messagePublic', data);
-		console.log(data.text);
+		// console.log(data.text);
 		cb(data.time);
 	})
 
