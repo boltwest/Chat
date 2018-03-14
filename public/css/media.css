@@ -15,10 +15,17 @@
     #checkIn {
         width: 150px;
         left: calc(50% - 95px);
+        padding: 10px;
     }
 
     .checkIn__login, .checkIn__password, .checkIn__button {
         width: 90%;
+    }
+
+    .checkIn__error{
+        width: 100%;
+        position: relative;
+        margin-top: 20px;
     }
 }
 

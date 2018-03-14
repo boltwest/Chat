@@ -109,10 +109,20 @@ body {
 }
 
 /*Message field                            Message field*/
+.wrapperMessageField{
+    overflow: auto;
+    height: calc(100% - 240px);
+}
+
+.wrapperMessageField:after{
+    content: '';
+    display: block;
+    clear: both;
+}
 
 #messageField {
-    height: calc(100% - 240px);
-    overflow: auto;
+    min-height: 100%;
+    /*height: calc(100% - 240px);*/
     display: flex;
     flex-direction: column;
     justify-content: flex-end;

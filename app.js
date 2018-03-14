@@ -45,21 +45,21 @@ io.on('connection', function (socket) {
 		socket.broadcast.emit('messagePublic', data);
 		// console.log(data.text);
 		cb(data.time);
-	})
+	});
 
-	socket.on('messageUser', function (data, cb) {
-		data.time = getDateNow();
-		socket.broadcast.emit('message', data);
-		console.log(data.text);
-		cb(data.time);
-	})
+	// socket.on('messageUser', function (data, cb) {
+	// 	data.time = getDateNow();
+	// 	socket.broadcast.emit('message', data);
+	// 	console.log(data.text);
+	// 	cb(data.time);
+	// })
 
 });
 
 function getDateNow() {
 	let date = new Date();
-	let time = date.getHours();
-	time += ':' + date.getMinutes();
+	let time = date.getUTCHours();
+	time += ':' + date.getUTCMinutes();
 	return time;
 }
 
