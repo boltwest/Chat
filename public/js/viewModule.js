@@ -18,7 +18,7 @@ chat.view = (function () {
 	my.init = function (model, field) {
 		modelComponent = model;
 		domField = field;
-		messageField = ($('#messageField', field))[0];
+		messageField = ($('.messageField', field))[0];
 		nameRoom = ($('#lableField .lableField__nameChat', field))[0];
 		checkIn = ($('#checkIn', field))[0];
 		error = $('#checkIn .checkIn__error', field)[0];
@@ -27,13 +27,17 @@ chat.view = (function () {
 
 	my.addMessageChat = function (json) {
 		// console.log(json);
+		let element;
 		if ( json.name === modelComponent.get('name') ) {
 			let templateMe = Handlebars.compile(sourceTemplateMe);
-			$(messageField).append(templateMe(json));
+			element = templateMe(json);
+			$(messageField).append(element);
 		} else {
 			let templateUser = Handlebars.compile(sourceTemplateUser);
-			$(messageField).append(templateUser(json));
+			element = templateUser(json);
+			$(messageField).append(element);
 		}
+		// element.scrollIntoView(false);
 	};
 	my.updateView = function () {
 		$(nameRoom).text(modelComponent.get('nameRoom'));
@@ -49,5 +53,8 @@ chat.view = (function () {
 			$(onlineList).removeClass('listUsersSow');
 		}
 	};
+
+
+
 	return my;
 })();

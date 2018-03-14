@@ -75,7 +75,7 @@ body {
 
 /*Lable field                              Lable field*/
 
-#lableField, #messageField, #inputField {
+#lableField, .messageField, #inputField {
     background: #f0f5f8;
 }
 
@@ -109,18 +109,19 @@ body {
 }
 
 /*Message field                            Message field*/
-.wrapperMessageField{
+
+#wrapperMessageField{
     overflow: auto;
     height: calc(100% - 240px);
 }
 
-.wrapperMessageField:after{
-    content: '';
-    display: block;
-    clear: both;
-}
+/*.wrapperMessageField:after{*/
+    /*content: '';*/
+    /*display: block;*/
+    /*clear: both;*/
+/*}*/
 
-#messageField {
+.messageField {
     min-height: 100%;
     /*height: calc(100% - 240px);*/
     display: flex;
