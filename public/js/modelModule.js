@@ -8,48 +8,74 @@ chat.model = (function () {
 		error: false,
 		name: 'Igor',
 		nameRoom: 'LogIn',
-		showListOnline: false
+		showListOnline: false,
+		userOnline: 0;
 	};
 
 	my.init = function (view) {
 		viewComponent = view;
 	};
-
-	my.checkUser = function (login, pass) {
-		$.ajax({
-			type: "POST",
-			url: '/access',
-			data: {name: login, password: pass},
-			success: requestFunc,
-			error: showError,
-			dataType: 'json'
-		});
+	my.cl = function () {
+		socket.close();
 	};
 
-	function requestFunc(data) {
-		// console.log(data);
-		if ( data.access ) {
-			let socketIo = io();
-			socket = socketIo;
-			socketIo.on('messagePublic', function (data) {
-				my.updateViewUserMessage(data);
-			});
-			// socketIo.on('messagePublic', function (data) {
-			// 	self.updateViewUserMessage(data);
-			// });
-			properties.registration = true;
-			properties.name = data.name;
-			my.updateViewComponent();
-		} else {
-			properties.error = true;
-			my.updateViewComponent();
-		}
-	}
+	my.checkUser = function (login, pass) {
+		socket = io();
+		socket.emit('setNickName', {name: login, password: pass});
+		socket.on('nickNameInit', function (data) {
+			console.log(data);
+				if ( !data.error ) {
+					properties.userOnline = data.userOnline;
+					properties.registration = true;
+					properties.name = data.name;
+					my.updateViewComponent();
+				} else {
+					properties.error = true;
+					my.updateViewComponent();
+				}
+		});
+		socket.on('messagePublic', function (data) {
+			my.updateViewUserMessage(data);
+		});
+		socket.on('disconnectUser', function (name) {
+			console.log('disc: ', name);
+		});
 
-	function showError() {
-		console.log(arguments);
-		alert('Ошибка сервера');
-	}
+		// $.ajax({
+		// 	type: "POST",
+		// 	url: '/access',
+		// 	data: {name: login, password: pass},
+		// 	success: requestFunc,
+		// 	error: showError,
+		// 	dataType: 'json'
+		// });
+	};
+
+
+	// function requestFunc(data) {
+	// 	// console.log(data);
+	// 	if ( data.access ) {
+	// 		let socketIo = io();
+	// 		socket = socketIo;
+	// 		socketIo.on('messagePublic', function (data) {
+	// 			my.updateViewUserMessage(data);
+	// 		});
+	// 		// socketIo.on('messagePublic', function (data) {
+	// 		// 	self.updateViewUserMessage(data);
+	// 		// });
+	// 		properties.registration = true;
+	// 		properties.name = data.name;
+	// 		my.updateViewComponent();
+	// 	} else {
+	// 		properties.error = true;
+	// 		my.updateViewComponent();
+	// 	}
+	// }
+	//
+	// function showError() {
+	// 	console.log(arguments);
+	// 	alert('Ошибка сервера');
+	// }
 
 	my.get = function (prop) {
 		return properties[prop];
