@@ -56,10 +56,9 @@ io.on('connection', function (socket) {
 	});
 
 	socket.on('messageUserAll', function (data, cb) {
-		data.time = getDateNow();
 		socket.broadcast.emit('messagePublic', data);
 		// console.log(data.text);
-		cb(data.time);
+		cb();
 	});
 });
 
@@ -72,13 +71,6 @@ function setUser(user) {
 	}
 	userDb.push(user);
 	return true;
-}
-
-function getDateNow() {
-	let date = new Date();
-	let time = date.getUTCHours();
-	time += ':' + date.getUTCMinutes();
-	return time;
 }
 
 function getUserOnline() {

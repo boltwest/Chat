@@ -12,6 +12,14 @@ chat.model = (function () {
 		userOnline: []
 	};
 
+	function getTime() {
+		let clock = '';
+		let date = new Date();
+		clock += date.getHours() + ':';
+		clock += date.getMinutes();
+		return clock;
+	}
+
 	my.init = function (view) {
 		viewComponent = view;
 	};
@@ -58,46 +66,21 @@ chat.model = (function () {
 		// });
 	};
 
-
-	// function requestFunc(data) {
-	// 	// console.log(data);
-	// 	if ( data.access ) {
-	// 		let socketIo = io();
-	// 		socket = socketIo;
-	// 		socketIo.on('messagePublic', function (data) {
-	// 			my.updateViewUserMessage(data);
-	// 		});
-	// 		// socketIo.on('messagePublic', function (data) {
-	// 		// 	self.updateViewUserMessage(data);
-	// 		// });
-	// 		properties.registration = true;
-	// 		properties.name = data.name;
-	// 		my.updateViewComponent();
-	// 	} else {
-	// 		properties.error = true;
-	// 		my.updateViewComponent();
-	// 	}
-	// }
-	//
-	// function showError() {
-	// 	console.log(arguments);
-	// 	alert('Ошибка сервера');
-	// }
-
 	my.get = function (prop) {
 		return properties[prop];
 	};
 
 	my.sendMessageAll = function (text) {
-		socket.emit('messageUserAll', {name: properties.name, text: text}, function (time) {
-			my.updateViewSelfMessage(text, time);
+		socket.emit('messageUserAll', {name: properties.name, text: text}, function () {
+			my.updateViewSelfMessage(text);
 		})
 	};
 
-	my.updateViewSelfMessage = function (text, time) {
-		viewComponent.addMessageChat({name: properties.name, text: text, time: time});
+	my.updateViewSelfMessage = function (text) {
+		viewComponent.addMessageChat({name: properties.name, text: text, time: getTime()});
 	};
 	my.updateViewUserMessage = function (data) {
+		data.time = getTime();
 		viewComponent.addMessageChat(data);
 	};
 
