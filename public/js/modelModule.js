@@ -31,39 +31,29 @@ chat.model = (function () {
 		socket = io();
 		socket.emit('setNickName', {name: login, password: pass});
 		socket.on('nickNameInit', function (data) {
-			console.log(data);
-				if ( !data.error ) {
-					properties.userOnline = data.userOnline;
-					properties.registration = true;
-					properties.name = data.name;
-					properties.nameRoom = 'Public chat';
-					my.updateViewComponent();
-					my.updateUserOnlineList();
-				} else {
-					properties.error = true;
-					my.updateViewComponent();
-				}
+			// console.log(data);
+			if ( !data.error ) {
+				properties.userOnline = data.userOnline;
+				properties.registration = true;
+				properties.name = data.name;
+				properties.nameRoom = 'Public chat';
+				my.updateViewComponent();
+				my.updateUserOnlineList();
+			} else {
+				properties.error = true;
+				my.updateViewComponent();
+			}
 		});
 		socket.on('messagePublic', function (data) {
+			data.room = 'Public chat';
 			my.updateViewUserMessage(data);
 		});
 		socket.on('disconnectUser', function (data) {
 			my.removeUser(data.name);
-			// console.log('disc: ', data.name);
 		});
 		socket.on('joinedUser', function (data) {
 			my.joinedUser(data.name);
-			// console.log('joined: ', data.name);
 		});
-
-		// $.ajax({
-		// 	type: "POST",
-		// 	url: '/access',
-		// 	data: {name: login, password: pass},
-		// 	success: requestFunc,
-		// 	error: showError,
-		// 	dataType: 'json'
-		// });
 	};
 
 	my.get = function (prop) {
@@ -72,13 +62,15 @@ chat.model = (function () {
 
 	my.sendMessageAll = function (text) {
 		socket.emit('messageUserAll', {name: properties.name, text: text}, function () {
-			my.updateViewSelfMessage(text);
+			let data = {
+				text: text,
+				name: properties.name,
+				room: 'Public chat'
+			};
+			my.updateViewUserMessage(data);
 		})
 	};
 
-	my.updateViewSelfMessage = function (text) {
-		viewComponent.addMessageChat({name: properties.name, text: text, time: getTime()});
-	};
 	my.updateViewUserMessage = function (data) {
 		data.time = getTime();
 		viewComponent.addMessageChat(data);
@@ -103,6 +95,12 @@ chat.model = (function () {
 
 	my.removeUser = function (name) {
 		viewComponent.removeUserOnlineList(name);
+	};
+
+	my.selectPrivateRoom = function (name) {
+		properties.nameRoom = name;
+		my.updateViewComponent();
+		console.log(name);
 	};
 
 

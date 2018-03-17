@@ -127,6 +127,7 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
+    /*flex-wrap: wrap;*/
 }
 
 .messageField__messageUser {
@@ -159,6 +160,7 @@ body {
 }
 
 .messageField__message-amText {
+    max-width: 100%;
     background: #7bc4ef;
     display: inline-block;
     color: #fff;

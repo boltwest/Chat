@@ -31,7 +31,12 @@ chat.control = (function () {
 		// login.value = '';
 		password.value = '';
 	};
-	my.showListOnline = function () {
+	my.showListOnline = function (event) {
+		let elem = event.target;
+		let name = $(elem).attr('data-name');
+		if(name){
+			modelComponent.selectPrivateRoom(name);
+		};
 		modelComponent.showListOnline();
 	};
 	return my;

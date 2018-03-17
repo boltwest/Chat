@@ -25,7 +25,7 @@ chat.view = (function () {
 	};
 
 	my.addMessageChat = function (json) {
-		// console.log(json);
+		// console.log(json);  {name: "w", text: "w", room: "Public chat", time: "19:35"}
 		let element;
 		if ( json.name === modelComponent.get('name') ) {
 			let templateMe = Handlebars.compile(sourceTemplateMe);
