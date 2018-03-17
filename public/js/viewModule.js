@@ -21,7 +21,7 @@ chat.view = (function () {
 		nameRoom = ($('#lableField .lableField__nameChat', field))[0];
 		checkIn = ($('#checkIn', field))[0];
 		error = $('#checkIn .checkIn__error', field)[0];
-		onlineList = ($('#listUsers .listUsers__userOnlineList', field))[0];
+		onlineList = ($('#listUsers', field))[0];
 	};
 
 	my.addMessageChat = function (json) {
@@ -47,9 +47,9 @@ chat.view = (function () {
 			$(error).show();
 		}
 		if ( modelComponent.get('showListOnline') ) {
-			$(onlineList).addClass('listUsersSow');
+			$(onlineList).addClass('listUsersSow', 800);
 		} else {
-			$(onlineList).removeClass('listUsersSow');
+			$(onlineList).removeClass('listUsersSow', 800);
 		}
 	};
 

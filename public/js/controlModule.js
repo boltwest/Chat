@@ -10,11 +10,11 @@ chat.control = (function () {
 		textMessage = ($('#inputField .inputField__inputUserMessage', field))[0];
 
 		let buttonSend = ($('#inputField .inputField__buttonSend', field))[0];
-		buttonSend.addEventListener('click', this.sendMessage);
+		buttonSend.addEventListener('click', my.sendMessage);
 		let buttonLogIn = ($('#checkIn .checkIn__button', field))[0];
-		buttonLogIn.addEventListener('click', this.checkIn);
+		buttonLogIn.addEventListener('click', my.checkIn);
 		let SowListOnline = ($('#listUsers', field))[0];
-		SowListOnline.addEventListener('click', this.showListOnline);
+		SowListOnline.addEventListener('click', my.showListOnline);
 	};
 
 	my.sendMessage = function () {

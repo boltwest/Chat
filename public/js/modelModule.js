@@ -28,6 +28,7 @@ chat.model = (function () {
 					properties.userOnline = data.userOnline;
 					properties.registration = true;
 					properties.name = data.name;
+					properties.nameRoom = 'Public chat';
 					my.updateViewComponent();
 					my.updateUserOnlineList();
 				} else {
@@ -38,8 +39,13 @@ chat.model = (function () {
 		socket.on('messagePublic', function (data) {
 			my.updateViewUserMessage(data);
 		});
-		socket.on('disconnectUser', function (name) {
-			console.log('disc: ', name);
+		socket.on('disconnectUser', function (data) {
+			my.removeUser(data.name);
+			// console.log('disc: ', data.name);
+		});
+		socket.on('joinedUser', function (data) {
+			my.joinedUser(data.name);
+			// console.log('joined: ', data.name);
 		});
 
 		// $.ajax({
@@ -106,6 +112,14 @@ chat.model = (function () {
 
 	my.updateUserOnlineList = function () {
 		viewComponent.updateUsersOnlineList();
+	};
+
+	my.joinedUser = function (name) {
+		viewComponent.addUserOnlineList(name);
+	};
+
+	my.removeUser = function (name) {
+		viewComponent.removeUserOnlineList(name);
 	};
 
 

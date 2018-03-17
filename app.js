@@ -34,7 +34,8 @@ io.on('connection', function (socket) {
 	socket.on('setNickName', function (data) {
 		// console.log(data.name);
 		if ( setUser(data) ) {
-			socket.emit('nickNameInit', {error: null, name: data.name, userOnline: ['petya', 'vasya', 'dima', 'kiril', 'gogashvili']});//getUserOnline()
+			socket.emit('nickNameInit', {error: null, name: data.name, userOnline: getUserOnline()});//getUserOnline()  ['petya', 'vasya', 'dima', 'kiril', 'gogashvili']
+			socket.broadcast.emit('joinedUser', {name: data.name});
 			socket.session = data;
 			userOnline.push(socket);
 		} else {
