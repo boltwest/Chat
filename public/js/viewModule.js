@@ -11,8 +11,7 @@ chat.view = (function () {
 
 	let sourceTemplateUser = document.getElementById('message-user-template').innerHTML;
 
-	let sourceTemplateUserOnline = document.getElementById('message-am-template').innerHTML;
-	let templateUserOnline = Handlebars.compile(sourceTemplateUserOnline);
+	let sourceTemplateUserOnline = document.getElementById('user_online').innerHTML;
 
 
 	my.init = function (model, field) {
@@ -22,7 +21,7 @@ chat.view = (function () {
 		nameRoom = ($('#lableField .lableField__nameChat', field))[0];
 		checkIn = ($('#checkIn', field))[0];
 		error = $('#checkIn .checkIn__error', field)[0];
-		onlineList = ($('#listUsers', field))[0];
+		onlineList = ($('#listUsers .listUsers__userOnlineList', field))[0];
 	};
 
 	my.addMessageChat = function (json) {
@@ -37,7 +36,7 @@ chat.view = (function () {
 			element = templateUser(json);
 			$(messageField).append(element);
 		}
-		// element.scrollIntoView(false);
+		messageField.scrollIntoView(false);
 	};
 	my.updateView = function () {
 		$(nameRoom).text(modelComponent.get('nameRoom'));
@@ -52,6 +51,23 @@ chat.view = (function () {
 		} else {
 			$(onlineList).removeClass('listUsersSow');
 		}
+	};
+
+	my.updateUsersOnlineList= function () {
+		let users = modelComponent.get('userOnline');
+		for(let i = 0; i < users.length; i++){
+			my.addUserOnlineList(users[i]);
+		}
+	};
+
+	my.addUserOnlineList = function (name) {
+		let templateUser = Handlebars.compile(sourceTemplateUserOnline);
+		let element = templateUser({name: name});
+		$(onlineList).append(element);
+	};
+
+	my.removeUserOnlineList = function (name) {
+		$('#listUsers .listUsers__userOnline.' + name).remove();
 	};
 
 

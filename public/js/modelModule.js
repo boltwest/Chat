@@ -9,7 +9,7 @@ chat.model = (function () {
 		name: 'Igor',
 		nameRoom: 'LogIn',
 		showListOnline: false,
-		userOnline: 0;
+		userOnline: []
 	};
 
 	my.init = function (view) {
@@ -29,6 +29,7 @@ chat.model = (function () {
 					properties.registration = true;
 					properties.name = data.name;
 					my.updateViewComponent();
+					my.updateUserOnlineList();
 				} else {
 					properties.error = true;
 					my.updateViewComponent();
@@ -101,6 +102,10 @@ chat.model = (function () {
 	my.showListOnline = function () {
 		properties.showListOnline = !properties.showListOnline;
 		my.updateViewComponent();
+	};
+
+	my.updateUserOnlineList = function () {
+		viewComponent.updateUsersOnlineList();
 	};
 
 

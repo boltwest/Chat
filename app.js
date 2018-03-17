@@ -1,7 +1,7 @@
 const express = require('express');
 // const path = require('path');
 const http = require('http');
-const bodyParser = require('body-parser')
+const bodyParser = require('body-parser');
 const PORT = process.env.PORT || 5000;
 let userDb = [{name: 'Igor', password: '2103'}];
 let userOnline = [];
@@ -34,11 +34,11 @@ io.on('connection', function (socket) {
 	socket.on('setNickName', function (data) {
 		// console.log(data.name);
 		if ( setUser(data) ) {
-			socket.emit('nickNameInit', {error: null, name: data.name, userOnline: getUserOnline()});
+			socket.emit('nickNameInit', {error: null, name: data.name, userOnline: ['petya', 'vasya', 'dima', 'kiril', 'gogashvili']});//getUserOnline()
 			socket.session = data;
 			userOnline.push(socket);
 		} else {
-			socket.emit('nickNameInit', {error: 'Такой логин уже существует или неверный пароль', name: data.name})
+			socket.emit('nickNameInit', {error: 'Такой логин уже существует или неверный пароль', name: data.name});
 			socket.disconnect(true);
 		}
 	});
@@ -47,7 +47,7 @@ io.on('connection', function (socket) {
 		for ( let i = 0; i < userOnline.length; i++ ) {
 			let socketDbUser = userOnline[i];
 			if ( socketDbUser.id === socket.id ) {
-				let user = userOnline.splice(i, 1);
+				userOnline.splice(i, 1);
 				// console.log(socketDbUser.session.name);
 				socket.broadcast.emit('disconnectUser', {name: socketDbUser.session.name});
 			}

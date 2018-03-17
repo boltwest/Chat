@@ -5,7 +5,14 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="icon" href="images/titleicon50.png" type="image/gif"/>
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="Chat">
+    <meta name="apple-mobile-web-app-title" content="Chat">
+    <meta name="msapplication-starturl" content="/">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" href="images/titleicon50.png" type="image/png"/>
     <!--<link href="https://file.myfontastic.com/tmBNhYy3jHLhMRprfkFGkP/icons.css" rel="stylesheet">-->
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/media.css">
@@ -16,9 +23,7 @@
     <div id="listUsers" class="listUsers">        <!--listUsersSow-->
         <span class="listUsers__publicChat">Public chat</span>
         <div class="listUsers__userOnlineList">
-            <div class="listUsers__userOnline">Игорь</div>
-            <div class="listUsers__userOnline">Вася</div>
-            <div class="listUsers__userOnline">Петя</div>
+            <!--<div class="listUsers__userOnline">Игорь</div>-->
         </div>
     </div>
     <div id="chatField">
@@ -38,7 +43,7 @@
 
         <div id="checkIn">
             <form name="checkInUser" class="checkIn__form">
-                <input type="text" name="login" class="checkIn__login" placeholder="login" title="Введите имя">
+                <input type="text" name="login" class="checkIn__login" placeholder="login" title="Введите имя" autofocus>
                 <input type="password" name="password" class="checkIn__password" placeholder="password"
                        title="Введите пароль">
                 <input type="button" name="submit" class="checkIn__button" value="Login">
@@ -72,7 +77,7 @@
 </script>
 
 <script id="user_online" type="text/x-handlebars-template">
-    <div class="listUsers__userOnline">{{name}}</div>
+    <div class="listUsers__userOnline {{name}}">{{name}}</div>
 </script>
 
 <!--/////////////////////////////////////////////////// Template//////////////////-->
@@ -99,6 +104,21 @@
 <script type="text/javascript" src="js/controlModule.js" defer></script>
 <script type="text/javascript" src="js/script.js" defer></script>
 
+<script>
+	if ( 'serviceWorker' in navigator ) {
+		window.addEventListener('load', function () {
+			navigator.serviceWorker.register('/sw.js').then(
+				function (registration) {
+					// Registration was successful
+//					console.log('ServiceWorker registration successful with scope: ', registration.scope);
+				},
+				function (err) {
+					// registration failed :(
+					console.log('ServiceWorker registration failed: ', err);
+				});
+		});
+	}
+</script>
 
 </body>
 </html>
