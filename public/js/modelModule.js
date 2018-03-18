@@ -49,12 +49,19 @@ chat.model = (function () {
 			my.updateViewUserMessage(data);
 		});
 		socket.on('disconnectUser', function (data) {
+			for(let i = 0; i < properties.userOnline.length; i++){
+				let user = properties.userOnline[i];
+				if(user === data.name){
+					properties.userOnline.splice(i, 1);
+				}
+			}
 			my.removeUser(data.name);
 		});
 		socket.on('joinedUser', function (data) {
+			properties.userOnline.push(data.name);
 			my.joinedUser(data.name);
 		});
-		socket.on ('messagePrivateRequire', function (data) {
+		socket.on('messagePrivateRequire', function (data) {
 			my.updateViewUserMessage(data);
 		})
 	};
@@ -64,7 +71,7 @@ chat.model = (function () {
 	};
 
 	my.sendMessage = function (text) {
-		if(properties.nameRoom === 'publicChat') {
+		if ( properties.nameRoom === 'publicChat' ) {
 			socket.emit('messageUserAll', {name: properties.name, text: text}, function () {
 				let data = {
 					text: text,
@@ -73,7 +80,7 @@ chat.model = (function () {
 				};
 				my.updateViewUserMessage(data);
 			})
-		}else {
+		} else {
 			socket.emit('messagePrivate', {name: properties.name, text: text, room: properties.nameRoom}, function () {
 				let data = {
 					text: text,
@@ -114,7 +121,8 @@ chat.model = (function () {
 	my.selectPrivateRoom = function (name) {
 		properties.nameRoom = name;
 		my.updateViewComponent();
-		console.log(name);
+		viewComponent.updatePrivateField();
+		// console.log(name);
 	};
 
 

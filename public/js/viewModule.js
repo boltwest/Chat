@@ -14,6 +14,19 @@ chat.view = (function () {
 	let sourceTemplateUserOnline = document.getElementById('user_online').innerHTML;
 	let sourceTemplateMessageField = document.getElementById('message_field').innerHTML;
 
+	my.updatePrivateField = function () {
+		let usersField = (modelComponent.get('userOnline')).slice();
+		usersField.push('publicChat');
+		let currentField = modelComponent.get('nameRoom');
+		for(let i = 0; i < usersField.length; i++){
+			let field = usersField[i];
+			if (field === currentField){
+				$('#wrapperMessageField .messageField.' + field).removeClass('opacityFieldMessage');
+			}else {
+				$('#wrapperMessageField .messageField.' + field).addClass('opacityFieldMessage');
+			}
+		}
+	}
 
 	my.init = function (model, field) {
 		modelComponent = model;
@@ -26,11 +39,8 @@ chat.view = (function () {
 	};
 
 	my.addMessageChat = function (json) {
-		console.log(json);  //{name: "w", text: "w", room: "Public chat", time: "19:35"}
+		//console.log(json);  //{name: "w", text: "w", room: "Public chat", time: "19:35"}
 		let messageField = $('#wrapperMessageField .messageField.' + json.room);
-
-		console.log(messageField);
-
 		let element;
 		if ( json.name === modelComponent.get('name') ) {
 			let templateMe = Handlebars.compile(sourceTemplateMe);
@@ -45,9 +55,9 @@ chat.view = (function () {
 	};
 	my.updateView = function () {
 		let name = modelComponent.get('nameRoom');
-		if(name === "publicChat"){
+		if ( name === "publicChat" ) {
 			$(nameRoom).text('Public chat');
-		}else {
+		} else {
 			$(nameRoom).text(name);
 		}
 
@@ -61,12 +71,12 @@ chat.view = (function () {
 			$(onlineList).addClass('listUsersSow', 800);
 		} else {
 			$(onlineList).removeClass('listUsersSow', 800);
-		}
+		};
 	};
 
-	my.updateUsersOnlineList= function () {
+	my.updateUsersOnlineList = function () {
 		let users = modelComponent.get('userOnline');
-		for(let i = 0; i < users.length; i++){
+		for ( let i = 0; i < users.length; i++ ) {
 			my.addUserOnlineList(users[i]);
 		}
 	};
@@ -79,13 +89,14 @@ chat.view = (function () {
 		let templateMessageField = Handlebars.compile(sourceTemplateMessageField);
 		let elementField = templateMessageField({room: name});
 		$(wrapperMessageField).append(elementField);
+		$('#wrapperMessageField .messageField:last-child').addClass('opacityFieldMessage');
+		// console.log($('#wrapperMessageField .messageField:last-child'));
 	};
 
 	my.removeUserOnlineList = function (name) {
 		$('#listUsers .listUsers__userOnline.' + name).remove();
 		$('#wrapperMessageField .messageField.' + name).remove();
 	};
-
 
 
 	return my;
