@@ -18,7 +18,7 @@ chat.control = (function () {
 	};
 
 	my.sendMessage = function () {
-		modelComponent.sendMessageAll(textMessage.value);
+		modelComponent.sendMessage(textMessage.value);
 		// console.log(textMessage.value);
 		textMessage.value = '';
 		textMessage.focus();

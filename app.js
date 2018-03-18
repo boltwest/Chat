@@ -60,6 +60,17 @@ io.on('connection', function (socket) {
 		// console.log(data.text);
 		cb();
 	});
+
+	socket.on('messagePrivate', function (data, cb) {//{ name: 'first', text: 'f', room: 'second' }
+		for(let i = 0; i < userOnline.length; i++){
+			let socket = userOnline[i];
+			if(socket.session.name === data.room){
+				data.room = data.name;
+				socket.emit('messagePrivateRequire', data);
+			}
+			cb();
+		}
+	});
 });
 
 function setUser(user) {

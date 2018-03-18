@@ -36,7 +36,7 @@ chat.model = (function () {
 				properties.userOnline = data.userOnline;
 				properties.registration = true;
 				properties.name = data.name;
-				properties.nameRoom = 'Public chat';
+				properties.nameRoom = 'publicChat';
 				my.updateViewComponent();
 				my.updateUserOnlineList();
 			} else {
@@ -45,7 +45,7 @@ chat.model = (function () {
 			}
 		});
 		socket.on('messagePublic', function (data) {
-			data.room = 'Public chat';
+			data.room = 'publicChat';
 			my.updateViewUserMessage(data);
 		});
 		socket.on('disconnectUser', function (data) {
@@ -54,21 +54,35 @@ chat.model = (function () {
 		socket.on('joinedUser', function (data) {
 			my.joinedUser(data.name);
 		});
+		socket.on ('messagePrivateRequire', function (data) {
+			my.updateViewUserMessage(data);
+		})
 	};
 
 	my.get = function (prop) {
 		return properties[prop];
 	};
 
-	my.sendMessageAll = function (text) {
-		socket.emit('messageUserAll', {name: properties.name, text: text}, function () {
-			let data = {
-				text: text,
-				name: properties.name,
-				room: 'Public chat'
-			};
-			my.updateViewUserMessage(data);
-		})
+	my.sendMessage = function (text) {
+		if(properties.nameRoom === 'publicChat') {
+			socket.emit('messageUserAll', {name: properties.name, text: text}, function () {
+				let data = {
+					text: text,
+					name: properties.name,
+					room: 'publicChat'
+				};
+				my.updateViewUserMessage(data);
+			})
+		}else {
+			socket.emit('messagePrivate', {name: properties.name, text: text, room: properties.nameRoom}, function () {
+				let data = {
+					text: text,
+					name: properties.name,
+					room: properties.nameRoom
+				};
+				my.updateViewUserMessage(data);
+			})
+		}
 	};
 
 	my.updateViewUserMessage = function (data) {

@@ -21,7 +21,7 @@
 <body>
 <div id="chatWrapper" class="wrapper">
     <div id="listUsers" class="listUsers">        <!--listUsersSow-->
-        <span class="listUsers__publicChat" data-name="Public chat">Public chat</span>
+        <span class="listUsers__publicChat" data-name="publicChat">Public chat</span>
         <div class="listUsers__userOnlineList">
             <!--<div class="listUsers__userOnline">Игорь</div>-->
         </div>
@@ -32,7 +32,7 @@
             <span class="lableField__settings">a</span>
         </div>
         <div id="wrapperMessageField">
-            <div class="messageField">
+            <div class="messageField publicChat">
                 <!--Поле с месседжами-->
             </div>
         </div>
@@ -78,6 +78,11 @@
 
 <script id="user_online" type="text/x-handlebars-template">
     <div class="listUsers__userOnline {{name}}" data-name="{{name}}">{{name}}</div>
+</script>
+
+<script id="message_field" type="text/x-handlebars-template">
+    <div class="messageField {{room}}">
+    </div>
 </script>
 
 <!--/////////////////////////////////////////////////// Template//////////////////-->
