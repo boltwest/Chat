@@ -58,6 +58,13 @@ body {
     user-select: none;
 }
 
+.listUsers__notification{
+    color: red;
+    float: right;
+    margin-right: 10px;
+    display: none;
+}
+
 .listUsers__userOnline:last-child {
     border-bottom: 1px solid #aaa;
 }
@@ -132,6 +139,8 @@ body {
 
 .opacityFieldMessage{
     opacity: 0;
+    height: 100px;
+    /*overflow: hidden;*/
     position: absolute;
     top: 0;
     left: 0;

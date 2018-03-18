@@ -63,6 +63,7 @@ chat.model = (function () {
 		});
 		socket.on('messagePrivateRequire', function (data) {
 			my.updateViewUserMessage(data);
+			my.notification(data);
 		})
 	};
 
@@ -123,6 +124,10 @@ chat.model = (function () {
 		my.updateViewComponent();
 		viewComponent.updatePrivateField();
 		// console.log(name);
+	};
+
+	my.notification = function (data) {
+		viewComponent.showNotification(data)
 	};
 
 

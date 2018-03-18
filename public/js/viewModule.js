@@ -14,19 +14,24 @@ chat.view = (function () {
 	let sourceTemplateUserOnline = document.getElementById('user_online').innerHTML;
 	let sourceTemplateMessageField = document.getElementById('message_field').innerHTML;
 
+	function hideNotification(name) {
+		$('#listUsers .listUsers__userOnline.' + name + ' .listUsers__notification').hide();
+	}
+
 	my.updatePrivateField = function () {
 		let usersField = (modelComponent.get('userOnline')).slice();
 		usersField.push('publicChat');
 		let currentField = modelComponent.get('nameRoom');
-		for(let i = 0; i < usersField.length; i++){
+		for ( let i = 0; i < usersField.length; i++ ) {
 			let field = usersField[i];
-			if (field === currentField){
+			if ( field === currentField ) {
 				$('#wrapperMessageField .messageField.' + field).removeClass('opacityFieldMessage');
-			}else {
+			} else {
 				$('#wrapperMessageField .messageField.' + field).addClass('opacityFieldMessage');
 			}
 		}
-	}
+		hideNotification(currentField);
+	};
 
 	my.init = function (model, field) {
 		modelComponent = model;
@@ -40,7 +45,7 @@ chat.view = (function () {
 
 	my.addMessageChat = function (json) {
 		//console.log(json);  //{name: "w", text: "w", room: "Public chat", time: "19:35"}
-		let messageField = $('#wrapperMessageField .messageField.' + json.room);
+		let messageField = ($('#wrapperMessageField .messageField.' + json.room))[0];
 		let element;
 		if ( json.name === modelComponent.get('name') ) {
 			let templateMe = Handlebars.compile(sourceTemplateMe);
@@ -51,7 +56,7 @@ chat.view = (function () {
 			element = templateUser(json);
 			$(messageField).append(element);
 		}
-		messageField[0].scrollIntoView(false);
+		messageField.scrollIntoView(false);
 	};
 	my.updateView = function () {
 		let name = modelComponent.get('nameRoom');
@@ -71,7 +76,8 @@ chat.view = (function () {
 			$(onlineList).addClass('listUsersSow', 800);
 		} else {
 			$(onlineList).removeClass('listUsersSow', 800);
-		};
+		}
+		;
 	};
 
 	my.updateUsersOnlineList = function () {
@@ -96,6 +102,13 @@ chat.view = (function () {
 	my.removeUserOnlineList = function (name) {
 		$('#listUsers .listUsers__userOnline.' + name).remove();
 		$('#wrapperMessageField .messageField.' + name).remove();
+	};
+
+	my.showNotification = function (data) {
+		//console.log(data);//{name: "second", text: "a", room: "second", time: "19:43"}
+		if ( modelComponent.get('nameRoom') !== data.name ) {
+			$('#listUsers .listUsers__userOnline.' + data.name + ' .listUsers__notification').show();
+		}
 	};
 
 
