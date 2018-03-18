@@ -51,7 +51,7 @@ chat.view = (function () {
 			element = templateUser(json);
 			$(messageField).append(element);
 		}
-		// messageField.scrollIntoView(false);
+		messageField[0].scrollIntoView(false);
 	};
 	my.updateView = function () {
 		let name = modelComponent.get('nameRoom');
