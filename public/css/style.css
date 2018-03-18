@@ -104,6 +104,10 @@ body {
     border-radius: 10px;
 }
 
+.lableField__notific{
+    display: none;
+}
+
 .lableField__settings {
     position: absolute;
     top: 10px;

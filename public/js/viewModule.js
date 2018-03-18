@@ -16,6 +16,7 @@ chat.view = (function () {
 
 	function hideNotification(name) {
 		$('#listUsers .listUsers__userOnline.' + name + ' .listUsers__notification').hide();
+		$('#lableField .lableField__notific').removeClass('lableField__notific-show');
 	}
 
 	my.updatePrivateField = function () {
@@ -108,6 +109,7 @@ chat.view = (function () {
 		//console.log(data);//{name: "second", text: "a", room: "second", time: "19:43"}
 		if ( modelComponent.get('nameRoom') !== data.name ) {
 			$('#listUsers .listUsers__userOnline.' + data.name + ' .listUsers__notification').show();
+			$('#lableField .lableField__notific').addClass('lableField__notific-show');
 		}
 	};
 
