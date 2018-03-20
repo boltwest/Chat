@@ -68,13 +68,13 @@ chat.view = (function () {
 		}
 
 		if ( modelComponent.get('registration') ) {
-			$(checkIn).hide();
+			$(checkIn).hide("explode");
 		}
 		if ( modelComponent.get('error') ) {
 			$(error).show();
 		}
 		if ( modelComponent.get('showListOnline') ) {
-			$(onlineList).addClass('listUsersSow', 800);
+			$(onlineList).addClass('listUsersSow', 800, "easeOutBounce");
 		} else {
 			$(onlineList).removeClass('listUsersSow', 800);
 		}
