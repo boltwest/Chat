@@ -18,9 +18,13 @@ chat.control = (function () {
 	};
 
 	my.sendMessage = function () {
-		modelComponent.sendMessage(textMessage.value);
-		// console.log(textMessage.value);
-		textMessage.value = '';
+		if(textMessage.value !== '') {
+			modelComponent.sendMessage(textMessage.value);
+			// console.log(textMessage.value);
+			textMessage.value = '';
+			textMessage.focus();
+			return;
+		}
 		textMessage.focus();
 	};
 

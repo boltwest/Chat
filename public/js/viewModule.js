@@ -69,14 +69,15 @@ chat.view = (function () {
 
 		if ( modelComponent.get('registration') ) {
 			$(checkIn).hide("explode");
+			$('#inputField .inputField__inputUserMessage').focus();
 		}
 		if ( modelComponent.get('error') ) {
 			$(error).show();
 		}
 		if ( modelComponent.get('showListOnline') ) {
-			$(onlineList).addClass('listUsersSow', 800, "easeOutBounce");
+			$(onlineList).addClass('listUsersSow');
 		} else {
-			$(onlineList).removeClass('listUsersSow', 800);
+			$(onlineList).removeClass('listUsersSow');
 		}
 		;
 	};
