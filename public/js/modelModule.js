@@ -28,6 +28,7 @@ chat.model = (function () {
 	};
 
 	my.checkUser = function (login, pass) {
+		my.vibration(200);
 		socket = io();
 		socket.emit('setNickName', {name: login, password: pass});
 		socket.on('nickNameInit', function (data) {
@@ -64,6 +65,7 @@ chat.model = (function () {
 		socket.on('messagePrivateRequire', function (data) {
 			my.updateViewUserMessage(data);
 			my.notification(data);
+			my.vibration([200,100,300,100]);
 		})
 	};
 
@@ -72,6 +74,7 @@ chat.model = (function () {
 	};
 
 	my.sendMessage = function (text) {
+		my.vibration(200);
 		if ( properties.nameRoom === 'publicChat' ) {
 			socket.emit('messageUserAll', {name: properties.name, text: text}, function () {
 				let data = {
@@ -133,6 +136,10 @@ chat.model = (function () {
 
 	my.notification = function (data) {
 		viewComponent.showNotification(data)
+	};
+
+	my.vibration = function (val) {
+		viewComponent.vibro(val)
 	};
 
 

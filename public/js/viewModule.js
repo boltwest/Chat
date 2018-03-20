@@ -113,6 +113,12 @@ chat.view = (function () {
 			$('#lableField .lableField__notific').addClass('lableField__notific-show');
 		}
 	};
+	my.vibro = function (val) {
+		if ( "vibrate" in navigator ) return navigator.vibrate(val);
+		if ( "oVibrate" in navigator ) return navigator.oVibrate(val);
+		if ( "mozVibrate" in navigator ) return navigator.mozVibrate(val);
+		if ( "webkitVibrate" in navigator ) return navigator.webkitVibrate(val);
+	}
 
 
 	return my;
