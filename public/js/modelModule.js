@@ -116,6 +116,11 @@ chat.model = (function () {
 	};
 
 	my.removeUser = function (name) {
+		if(name !== properties.nameRoom) {
+			viewComponent.removeUserOnlineList(name);
+			return;
+		}
+		my.selectPrivateRoom('publicChat');
 		viewComponent.removeUserOnlineList(name);
 	};
 
