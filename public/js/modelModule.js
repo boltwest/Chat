@@ -28,7 +28,7 @@ chat.model = (function () {
 	};
 
 	my.checkUser = function (login, pass) {
-		my.vibration(200);
+		my.vibration(20);
 		socket = io();
 		socket.emit('setNickName', {name: login, password: pass});
 		socket.on('nickNameInit', function (data) {
@@ -74,7 +74,7 @@ chat.model = (function () {
 	};
 
 	my.sendMessage = function (text) {
-		my.vibration(200);
+		my.vibration(20);
 		if ( properties.nameRoom === 'publicChat' ) {
 			socket.emit('messageUserAll', {name: properties.name, text: text}, function () {
 				let data = {
