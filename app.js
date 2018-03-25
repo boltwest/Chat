@@ -30,7 +30,6 @@ app.use(function (err, req, res, next) {
 let io = require('socket.io')(server);
 
 io.on('connection', function (socket) {
-	// console.log('Клиент подключился', socket.id, userOnline.length);
 	socket.on('setNickName', function (data) {
 		// console.log(data.name);
 		if ( setUser(data) ) {
