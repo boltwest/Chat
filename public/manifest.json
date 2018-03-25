@@ -1,6 +1,13 @@
 {
   "name": "Chat",
+  "short_name": "Chat",
   "lang": "ru-RU",
   "start_url": "/",
-  "display": "standalone"
+  "display": "standalone",
+  "description": "A simply chat.",
+  "icons": [{
+    "src": "images/titleicon50.png",
+    "sizes": "50x50",
+    "type": "image/png"
+  }]
 }
